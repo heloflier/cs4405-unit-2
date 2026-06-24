@@ -15,4 +15,12 @@ class WeatherReport(
     fun toCelsius(fahrenheit: Double): Double {
         return (fahrenheit - 32) * 5 / 9
     }
+
+    fun formatTemperatureDisplay(useFahrenheit: Boolean = false): String {
+        return if (useFahrenheit) {
+            "%.1f°F".format(toFahrenheit())
+        } else {
+            "%.1f°C".format(temperatureCelsius)
+        }
+    }
 }
