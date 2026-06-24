@@ -2,7 +2,7 @@ package com.example.wxforecastui
 
 import java.util.Date
 
-class WeatherReport(
+open class WeatherReport(
     val city: String,
     val temperatureCelsius: Double,
     val condition: String,
@@ -16,7 +16,7 @@ class WeatherReport(
         return (fahrenheit - 32) * 5 / 9
     }
 
-    fun formatTemperatureDisplay(useFahrenheit: Boolean = false): String {
+    open fun formatTemperatureDisplay(useFahrenheit: Boolean = false): String {
         return if (useFahrenheit) {
             "%.1f°F".format(toFahrenheit())
         } else {
