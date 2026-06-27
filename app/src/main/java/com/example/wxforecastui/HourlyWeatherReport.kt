@@ -1,5 +1,6 @@
 package com.example.wxforecastui
 
+import java.text.SimpleDateFormat
 import java.util.Date
 
 class HourlyWeatherReport(
@@ -7,10 +8,11 @@ class HourlyWeatherReport(
     temperatureCelsius: Double,
     condition: String,
     lastUpdated: Date = Date(),
-    val hour: Int
+    val forecastTime: Date
 ) : WeatherReport(city, temperatureCelsius, condition, lastUpdated) {
 
     override fun toString(): String {
-        return "Hour $hour: ${formatTemperatureDisplay()} - $condition"
+        val formatter = SimpleDateFormat("HH:mm")
+        return "${formatter.format(forecastTime)} - ${formatTemperatureDisplay()} - $condition"
     }
 }

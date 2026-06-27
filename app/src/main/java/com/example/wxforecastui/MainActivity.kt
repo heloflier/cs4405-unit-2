@@ -10,16 +10,20 @@ import com.google.android.material.button.MaterialButton
 import java.text.SimpleDateFormat
 import java.util.Locale
 import java.util.Date
+import java.util.Calendar
 
 class MainActivity : AppCompatActivity() {
 
     private var useFahrenheit = false
 
-    private val weatherReport = WeatherReport(
+    private val weatherReport = HourlyWeatherReport(
         city = "Turin, Italy",
         temperatureCelsius = 22.0,
         condition = "Sunny",
-        lastUpdated = Date()
+        forecastTime = Calendar.getInstance().apply {
+            set(Calendar.MINUTE, 0)
+            set(Calendar.SECOND, 0)
+        }.time
     )
 
     private lateinit var tvCity: TextView
@@ -58,7 +62,7 @@ class MainActivity : AppCompatActivity() {
         tvCity.text = weatherReport.city
         tvTemperature.text = weatherReport.formatTemperatureDisplay(useFahrenheit)
         tvCondition.text = weatherReport.condition
-        tvLastUpdated.text = "Last updated: ${formatter.format(weatherReport.lastUpdated)}"
+        tvLastUpdated.text = "Last updated: ${formatter.format(weatherReport.forecastTime)}"
         btnToggleUnit.text = if (useFahrenheit) "Switch to °C" else "Switch to °F"
     }
 }
