@@ -1,30 +1,45 @@
-# WXForecastUI
+# WXForecastUI — Extended Branch
 
-A weather forecast Android app built with Kotlin and Material Design 3, 
-developed as part of CS 4405 – Mobile Applications at the University of the People.
+An enhanced version of the WXForecastUI weather forecast Android app, 
+building on the base assignment submission in `master`.
 
-## Features
-- Displays city, temperature, weather condition, and last updated time
-- Toggle between Celsius and Fahrenheit
-- Material Design 3 theming with dynamic color support (Android 12+)
-- Light and dark mode variants
+## Status
+Work in progress. See `master` for the completed base version.
+
+## Features (completed)
+- All features from `master`
+- Live weather data via Open-Meteo API (no API key required)
+- Current device location via FusedLocationProviderClient
+- Reverse geocoding via Android Geocoder
+- Mock data fallback on API failure or location denial
+- Repository pattern separating data concerns from UI
+
+## In Progress
+- Step 4: Timed background refresh + manual refresh IconButton
+- Step 5: MD3 weather condition icons
+- Step 6: Light/Dark mode toggle via AppCompatDelegate
+- Step 7: Espresso UI tests
 
 ## Architecture
-- `WeatherReport` — base class holding current conditions
-- `HourlyWeatherReport` — subclass responsible for time-specific forecast data,
-  populating the last updated timestamp. Architecturally designed to support 
-  future enhancements such as scheduled data refresh and live API integration.
-- Mock data source with a clean separation of concerns to facilitate future extension
+- `WeatherReport` — base class, owns current conditions
+- `HourlyWeatherReport` — subclass, owns time dimension via `forecastTime`
+- `WeatherRepository` — fetches from API, falls back to mock on failure
+- `MockWeatherDataSource` — hardcoded fallback data
+- `OpenMeteoService` — Retrofit interface for Open-Meteo API
+- `WmoCodeMapper` — maps WMO weather codes to condition strings
+- `WXForecastApplication` — enables MD3 dynamic color support
 
-## Testing
-- JUnit unit tests for Celsius/Fahrenheit conversion in both directions
-- Reference points: freezing (0°C/32°F) and boiling (100°C/212°F)
+## Package Structure
+com.example.wxforecastui
+├── api/          — Retrofit service and response models
+├── mock/         — Mock data source
+├── repository/   — Data access layer
+└── util/         — WMO code mapping
 
 ## Branch Structure
-- `master` — final version of the base assignment submission
-- `extended` — enhanced version with additional features (in progress)
+- `master` — final base assignment submission
+- `extended` — this branch, enhanced version in progress
 
-## Notes
-This is the final version of the base application. Further architectural and UI 
-enhancements are planned and documented in the `extended` branch and the 
-accompanying written assignment.
+## Testing
+- JUnit unit tests for temperature conversion (both directions)
+- Espresso UI tests planned for Step 7
